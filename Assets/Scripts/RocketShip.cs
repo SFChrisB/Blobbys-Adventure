@@ -4,16 +4,31 @@ using UnityEngine;
 
 public class RocketShip : MonoBehaviour
 {
+    Rigidbody rigidBody;
+
+    void Start()
+    {
+        rigidBody = GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space)){
-            print("Space pressed");
+        ProcessInput();
+    }
+
+    private void ProcessInput()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rigidBody.AddRelativeForce(Vector3.up);
         }
 
-        if (Input.GetKey(KeyCode.A)) {
+        if (Input.GetKey(KeyCode.A))
+        {
             print("Rotating left");
-        } else if (Input.GetKey(KeyCode.D)){
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
             print("Rotating right");
         }
     }
