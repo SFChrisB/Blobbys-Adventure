@@ -7,6 +7,9 @@ public class RocketShip : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 10f;
+    [SerializeField] AudioClip thrustSFX;
+    [SerializeField] AudioClip deathSFX;
+    [SerializeField] AudioClip finishSFX;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -41,11 +44,13 @@ public class RocketShip : MonoBehaviour
 
             case "Finish":
                 state = State.Transcending;
+                audioSource.PlayOneShot(finishSFX);
                 Invoke("LoadNextScene", 1f); //giving 1 second delay
                 break;
 
             default:
                 state = State.Dying;
+                audioSource.PlayOneShot(deathSFX);
                 Invoke("RestartFirstScene",  1f);
                 break;
         }
@@ -86,7 +91,7 @@ public class RocketShip : MonoBehaviour
             rigidBody.AddRelativeForce(Vector3.up * mainThrust);
             if (!audioSource.isPlaying)
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(thrustSFX);
             }
         }
         else
