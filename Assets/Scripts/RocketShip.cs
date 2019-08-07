@@ -7,9 +7,14 @@ public class RocketShip : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 10f;
+
     [SerializeField] AudioClip thrustSFX;
     [SerializeField] AudioClip deathSFX;
     [SerializeField] AudioClip finishSFX;
+
+    [SerializeField] ParticleSystem thrustPS;
+    [SerializeField] ParticleSystem deathPS;
+    [SerializeField] ParticleSystem finishPS;
 
     Rigidbody rigidBody;
     AudioSource audioSource;
@@ -25,11 +30,10 @@ public class RocketShip : MonoBehaviour
 
     void Update()
     {
-        //todo - make sure sfx stop on death/finish
         if (state == State.Alive)
         {
-            ApplyThrustInput();
-            ApplyRotationInput();
+            RespondToThrustInput();
+            RespondToRotationInput();
         } 
     }
 
@@ -43,30 +47,39 @@ public class RocketShip : MonoBehaviour
                 break;
 
             case "Finish":
-                state = State.Transcending;
-                audioSource.PlayOneShot(finishSFX);
-                Invoke("LoadNextScene", 1f); //giving 1 second delay
+                StartSuccessSequence();
                 break;
 
             default:
-                state = State.Dying;
-                audioSource.PlayOneShot(deathSFX);
-                Invoke("RestartFirstScene",  1f);
+                StartDeathSequence();
                 break;
         }
     }
 
-    private void LoadNextScene()
+    private void RespondToThrustInput()
     {
-        SceneManager.LoadScene(1); // todo allow for more then 2 levels
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ThrustInput();
+        }
+        else
+        {
+            audioSource.Stop();
+            thrustPS.Stop();
+        }
     }
 
-    private void RestartFirstScene()
+    private void ThrustInput()
     {
-        SceneManager.LoadScene(0);
+        rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(thrustSFX);
+        }
+        thrustPS.Play();
     }
 
-    private void ApplyRotationInput()
+    private void RespondToRotationInput()
     {
         rigidBody.freezeRotation = true; //take manual control of rotation
         float rotationThisFrame = rcsThrust * Time.deltaTime;
@@ -84,24 +97,36 @@ public class RocketShip : MonoBehaviour
 
     }
 
-    private void ApplyThrustInput()
+    private void StartSuccessSequence()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            ThrustInput();
-        }
-        else
-        {
-            audioSource.Stop();
-        }
+        state = State.Transcending;
+        audioSource.Stop();
+        audioSource.PlayOneShot(finishSFX);
+        thrustPS.Stop();
+        finishPS.Play();
+        Invoke("LoadNextScene", 1f); //giving 1 second delay
     }
 
-    private void ThrustInput()
+    private void LoadNextScene()
     {
-        rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(thrustSFX);
-        }
+        SceneManager.LoadScene(1); // todo allow for more then 2 levels
+        finishPS.Stop();
     }
+
+    private void StartDeathSequence()
+    {
+        state = State.Dying;
+        audioSource.Stop();
+        audioSource.PlayOneShot(deathSFX);
+        thrustPS.Stop();
+        deathPS.Play();
+        Invoke("RestartFirstScene", 1f);
+    }
+
+    private void RestartFirstScene()
+    {
+        SceneManager.LoadScene(0);
+        deathPS.Stop();
+    }
+
 }
