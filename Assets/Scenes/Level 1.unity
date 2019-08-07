@@ -483,6 +483,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Destination Pad
       objectReference: {fileID: 0}
+    - target: {fileID: 3759114703983468752, guid: 3d6797f39b326c346b04cfdab168b855,
+        type: 3}
+      propertyPath: m_TagString
+      value: Friendly
+      objectReference: {fileID: 0}
     - target: {fileID: 1700166792113390254, guid: 3d6797f39b326c346b04cfdab168b855,
         type: 3}
       propertyPath: m_LocalPosition.x

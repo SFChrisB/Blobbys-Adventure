@@ -22,6 +22,24 @@ public class RocketShip : MonoBehaviour
         BoosterRotation();
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("OK");
+                break;
+
+            case "Fuel":
+                print("Fuel!");
+                break;
+
+            default:
+                print("Dead!"); //untagged objects will kill player
+                break;
+        }
+    }
+
     private void BoosterRotation()
     {
         rigidBody.freezeRotation = true; //take manual control of rotation
