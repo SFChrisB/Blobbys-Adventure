@@ -11,6 +11,9 @@ public class RocketShip : MonoBehaviour
     Rigidbody rigidBody;
     AudioSource audioSource;
 
+    enum State { Alive, Dying, Transcending };
+    State state = State.Alive;
+
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -19,25 +22,43 @@ public class RocketShip : MonoBehaviour
 
     void Update()
     {
-        RocketThrust();
-        BoosterRotation();
+        //todo - make sure sfx stop on death/finish
+        if (state == State.Alive)
+        {
+            RocketThrust();
+            BoosterRotation();
+        } 
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive) { return; }  //if not alive, stop collisions
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 break;
 
             case "Finish":
-                SceneManager.LoadScene(1);
+                state = State.Transcending;
+                Invoke("LoadNextScene", 1f); //giving 1 second delay
                 break;
 
             default:
-                SceneManager.LoadScene(0);
+                state = State.Dying;
+                Invoke("RestartFirstScene",  1f);
                 break;
         }
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(1); // todo allow for more then 2 levels
+    }
+
+    private void RestartFirstScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void BoosterRotation()
