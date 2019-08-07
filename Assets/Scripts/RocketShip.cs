@@ -12,7 +12,7 @@ public class RocketShip : MonoBehaviour
     [SerializeField] AudioClip deathSFX;
     [SerializeField] AudioClip finishSFX;
 
-    [SerializeField] ParticleSystem thrustPS;
+    //[SerializeField] ParticleSystem thrustPS;
     [SerializeField] ParticleSystem deathPS;
     [SerializeField] ParticleSystem finishPS;
 
@@ -65,7 +65,7 @@ public class RocketShip : MonoBehaviour
         else
         {
             audioSource.Stop();
-            thrustPS.Stop();
+            //thrustPS.Stop();
         }
     }
 
@@ -76,7 +76,7 @@ public class RocketShip : MonoBehaviour
         {
             audioSource.PlayOneShot(thrustSFX);
         }
-        thrustPS.Play();
+        //thrustPS.Play();
     }
 
     private void RespondToRotationInput()
@@ -102,7 +102,7 @@ public class RocketShip : MonoBehaviour
         state = State.Transcending;
         audioSource.Stop();
         audioSource.PlayOneShot(finishSFX);
-        thrustPS.Stop();
+        //thrustPS.Stop();
         finishPS.Play();
         Invoke("LoadNextScene", 1f); //giving 1 second delay
     }
@@ -118,7 +118,7 @@ public class RocketShip : MonoBehaviour
         state = State.Dying;
         audioSource.Stop();
         audioSource.PlayOneShot(deathSFX);
-        thrustPS.Stop();
+        //thrustPS.Stop();
         deathPS.Play();
         Invoke("RestartFirstScene", 1f);
     }
