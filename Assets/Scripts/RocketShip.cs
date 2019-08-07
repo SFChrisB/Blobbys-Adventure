@@ -28,8 +28,8 @@ public class RocketShip : MonoBehaviour
         //todo - make sure sfx stop on death/finish
         if (state == State.Alive)
         {
-            RocketThrust();
-            BoosterRotation();
+            ApplyThrustInput();
+            ApplyRotationInput();
         } 
     }
 
@@ -66,7 +66,7 @@ public class RocketShip : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    private void BoosterRotation()
+    private void ApplyRotationInput()
     {
         rigidBody.freezeRotation = true; //take manual control of rotation
         float rotationThisFrame = rcsThrust * Time.deltaTime;
@@ -84,22 +84,24 @@ public class RocketShip : MonoBehaviour
 
     }
 
-    private void RocketThrust()
+    private void ApplyThrustInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up * mainThrust);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.PlayOneShot(thrustSFX);
-            }
+            ThrustInput();
         }
         else
         {
-            if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
+            audioSource.Stop();
+        }
+    }
+
+    private void ThrustInput()
+    {
+        rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(thrustSFX);
         }
     }
 }
