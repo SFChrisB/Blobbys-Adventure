@@ -654,6 +654,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Directional Light
       objectReference: {fileID: 0}
+    - target: {fileID: 1703580962124516490, guid: 5ca4b04285962f046bbe409c1c9925a9,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 2.0387487e-38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703580962124516490, guid: 5ca4b04285962f046bbe409c1c9925a9,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.y
+      value: 2.066299e-39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703580962124516490, guid: 5ca4b04285962f046bbe409c1c9925a9,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 3.67342e-40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703580962124516490, guid: 5ca4b04285962f046bbe409c1c9925a9,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.w
+      value: 1.469368e-39
+      objectReference: {fileID: 0}
     - target: {fileID: 1703580962124516491, guid: 5ca4b04285962f046bbe409c1c9925a9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -860,11 +880,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Destination Pad
-      objectReference: {fileID: 0}
-    - target: {fileID: 3759114703983468752, guid: 3d6797f39b326c346b04cfdab168b855,
-        type: 3}
-      propertyPath: m_TagString
-      value: Friendly
       objectReference: {fileID: 0}
     - target: {fileID: 1700166792113390254, guid: 3d6797f39b326c346b04cfdab168b855,
         type: 3}
