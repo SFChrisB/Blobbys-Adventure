@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RocketShip : MonoBehaviour
 {
@@ -27,15 +28,14 @@ public class RocketShip : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
                 break;
 
-            case "Fuel":
-                print("Fuel!");
+            case "Finish":
+                SceneManager.LoadScene(1);
                 break;
 
             default:
-                print("Dead!"); //untagged objects will kill player
+                SceneManager.LoadScene(0);
                 break;
         }
     }
