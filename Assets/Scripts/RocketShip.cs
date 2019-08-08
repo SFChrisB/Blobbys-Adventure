@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,7 @@ public class RocketShip : MonoBehaviour
 
     enum State { Alive, Dying, Transcending };
     State state = State.Alive;
+    bool collisionOn = true;        //for debug mode
 
     void Start()
     {
@@ -36,6 +38,21 @@ public class RocketShip : MonoBehaviour
             RespondToThrustInput();
             RespondToRotationInput();
         } 
+
+        if (Debug.isDebugBuild) { DebugMode(); }
+    }
+
+    private void DebugMode()
+    {
+        if (Input.GetKeyDown(KeyCode.L))    //debug to easily get to next level
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionOn = !collisionOn;     //toggle bool
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -52,7 +69,7 @@ public class RocketShip : MonoBehaviour
                 break;
 
             default:
-                StartDeathSequence();
+                if (collisionOn) { StartDeathSequence(); }
                 break;
         }
     }
