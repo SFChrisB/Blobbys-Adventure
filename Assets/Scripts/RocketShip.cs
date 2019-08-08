@@ -144,12 +144,13 @@ public class RocketShip : MonoBehaviour
         audioSource.PlayOneShot(deathSFX);
         //thrustPS.Stop();
         deathPS.Play();
-        Invoke("RestartFirstScene", levelLoadDelay);
+        Invoke("RestartCurrentScene", levelLoadDelay);
     }
 
-    private void RestartFirstScene()
+    private void RestartCurrentScene()
     {
-        SceneManager.LoadScene(0);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
         deathPS.Stop();
     }
 
