@@ -46,7 +46,7 @@ public class RocketShip : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))    //debug to easily get to next level
         {
-            SceneManager.LoadScene(1);
+            LoadNextScene();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
@@ -127,7 +127,13 @@ public class RocketShip : MonoBehaviour
 
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(1); // todo allow for more then 2 levels
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;     //loop back to beginnning
+        }
+        SceneManager.LoadScene(nextSceneIndex);
         finishPS.Stop();
     }
 
