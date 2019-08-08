@@ -37,9 +37,19 @@ public class RocketShip : MonoBehaviour
         {
             RespondToThrustInput();
             RespondToRotationInput();
-        } 
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            QuitGame();
+        }
 
         if (Debug.isDebugBuild) { DebugMode(); }
+    }
+
+    private void QuitGame()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void DebugMode()
