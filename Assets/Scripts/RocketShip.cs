@@ -7,6 +7,7 @@ public class RocketShip : MonoBehaviour
 {
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mainThrust = 10f;
+    [SerializeField] float levelLoadDelay = 1f;
 
     [SerializeField] AudioClip thrustSFX;
     [SerializeField] AudioClip deathSFX;
@@ -104,7 +105,7 @@ public class RocketShip : MonoBehaviour
         audioSource.PlayOneShot(finishSFX);
         //thrustPS.Stop();
         finishPS.Play();
-        Invoke("LoadNextScene", 1f); //giving 1 second delay
+        Invoke("LoadNextScene", levelLoadDelay); //giving 1 second delay
     }
 
     private void LoadNextScene()
@@ -120,7 +121,7 @@ public class RocketShip : MonoBehaviour
         audioSource.PlayOneShot(deathSFX);
         //thrustPS.Stop();
         deathPS.Play();
-        Invoke("RestartFirstScene", 1f);
+        Invoke("RestartFirstScene", levelLoadDelay);
     }
 
     private void RestartFirstScene()
