@@ -76,7 +76,7 @@ public class RocketShip : MonoBehaviour
 
     private void RespondToThrustInput()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetButtonDown("Fire1"))
         {
             ThrustInput();
         }
