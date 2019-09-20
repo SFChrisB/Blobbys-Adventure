@@ -1,6 +1,6 @@
 # Blobbys-Adventure
 
-For a newer version, visit my itch.io on https://sfrog.itch.io/blobbys-journey-home
+For the newest version, visit my itch.io on https://sfrog.itch.io/blobbys-journey-home to play
 
 <em>This is my version of the 'Project Boost' game from gamedev.tv 3D Unity Course. The game is created using C# within the Unity engine.</em>
 ![lab1pic](https://user-images.githubusercontent.com/24542182/63312171-888b0180-c2f8-11e9-94a9-10d6ac72cd56.png)
